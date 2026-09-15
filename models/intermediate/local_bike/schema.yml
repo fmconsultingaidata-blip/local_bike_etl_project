@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: int_order_items
+    description: "Intermediate model combining order items with order-level details for Local Bike."
+    columns:
+      
+      - name: order_status_label
+        description: "Current status of the order (e.g., Pending, Processing, Completed, Rejected)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Pending', 'Processing', 'Rejected', 'Completed', 'Unknown'] 
