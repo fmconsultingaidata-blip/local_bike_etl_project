@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: mrt_staff_performance_local_bike
+    description: '{{ doc("mrt_staff_performance_local_bike") }}'
+    columns:
+      - name: staff_id
+        description: "Identifier of the salesperson."
+        tests:
+          - not_null
+      - name: store_id
+        description: "Identifier of the store."
+        tests:
+          - not_null

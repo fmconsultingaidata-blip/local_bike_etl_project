@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: mrt_sales_details_local_bike
+    description: '{{ doc("mrt_sales_details_local_bike") }}'
+    columns:
+      - name: order_item_id
+        description: "Unique identifier for the order item."
+        tests:
+          - unique
+          - not_null

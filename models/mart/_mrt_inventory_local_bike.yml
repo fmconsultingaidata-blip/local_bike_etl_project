@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: mrt_inventory_local_bike
+    description: '{{ doc("mrt_inventory_local_bike") }}'
+    columns:
+      - name: stock_id
+        description: "Unique identifier for the stock record."
+        tests:
+          - unique
+          - not_null
