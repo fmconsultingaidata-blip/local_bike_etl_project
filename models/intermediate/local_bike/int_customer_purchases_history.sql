@@ -11,6 +11,7 @@ customer_brand_prefs as (
     select
         o.customer_id,
         oi.brand_id,
+        oi.brand_name,
         sum(oi.item_quantity) as qty_per_brand,
         row_number() over (
             partition by o.customer_id 
@@ -18,7 +19,7 @@ customer_brand_prefs as (
         ) as brand_rank
     from order_items oi
     inner join orders_summary o on oi.order_id = o.order_id
-    group by o.customer_id, oi.brand_id
+    group by o.customer_id, oi.brand_id, oi.brand_name
 ),
 
 -- On calcule le volume acheté par client et par catégorie
@@ -56,6 +57,7 @@ select
     bh.total_items_purchased,
     bh.total_orders_spent,
     cb.brand_id as top_brand_id,
+    cb.brand_name as top_brand_name,
     cc.category_id as top_category_id
 from base_history bh
 left join customer_brand_prefs cb 

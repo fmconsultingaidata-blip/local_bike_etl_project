@@ -31,6 +31,27 @@ products as (
         model_year,
         list_price as product_base_price
     from {{ ref('stg_local_bike__products') }}
+),
+
+brands as (
+    select
+        brand_id,
+        brand_name
+    from {{ ref('stg_local_bike__brands') }}
+),
+
+stores as (
+    select
+        store_id,
+        store_name
+    from {{ ref('stg_local_bike__stores') }}
+),
+
+staffs as (
+    select
+        staff_id,
+        staff_last_name 
+    from {{ ref('stg_local_bike__staffs') }}
 )
 
 select
@@ -38,7 +59,9 @@ select
     oi.order_id,
     o.customer_id,
     o.store_id,
+    st.store_name,
     o.staff_id,
+    sf.staff_last_name,
     o.order_created_at,
     o.order_status,
     o.order_required_at,
@@ -47,12 +70,16 @@ select
     oi.product_id,
     p.product_name,
     p.brand_id,
+    b.brand_name,
     p.category_id,
     p.model_year,
     oi.item_quantity,
     oi.list_price,
     oi.discount,
     oi.total_order_item_amount
-from {{ ref('stg_local_bike__order_items') }} oi
+from order_items oi
 left join orders o on oi.order_id = o.order_id
 left join products p on oi.product_id = p.product_id
+left join brands b on p.brand_id = b.brand_id
+left join stores st on o.store_id = st.store_id
+left join staffs sf on o.staff_id = sf.staff_id
