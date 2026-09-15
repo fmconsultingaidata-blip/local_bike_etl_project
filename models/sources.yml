@@ -21,3 +21,16 @@ sources:
       - name: order_item
       - name: seller
       - name: user
+
+  - name: local_bike_ae_final_case
+    schema: local_bike_ae_final_case
+    tables:
+      - name: lb_brands
+      - name: lb_categories
+      - name: lb_customers
+      - name: lb_order_items
+      - name: lb_orders
+      - name: lb_products
+      - name: lb_staffs
+      - name: lb_stocks
+      - name: lb_stores
