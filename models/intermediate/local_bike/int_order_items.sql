@@ -53,6 +53,15 @@ staffs as (
         staff_last_name 
     from {{ ref('stg_local_bike__staffs') }}
 )
+,
+
+categories as (
+    select
+        category_name,
+        category_id
+    from {{ ref('stg_local_bike__categories') }}
+)
+
 
 select
     oi.order_item_id,
@@ -72,6 +81,7 @@ select
     p.brand_id,
     b.brand_name,
     p.category_id,
+    ct.category_name,
     p.model_year,
     oi.item_quantity,
     oi.list_price,
@@ -83,3 +93,4 @@ left join products p on oi.product_id = p.product_id
 left join brands b on p.brand_id = b.brand_id
 left join stores st on o.store_id = st.store_id
 left join staffs sf on o.staff_id = sf.staff_id
+left join categories ct on p.category_id = ct.category_id
