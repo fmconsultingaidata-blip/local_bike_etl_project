@@ -25,11 +25,12 @@ select
     cp.top_brand_id,
     cp.top_brand_name,
     cp.top_category_id,
+    cp.top_category_name,
     coalesce(cp.total_orders_count, 0) as total_orders_count,
     coalesce(cp.total_items_purchased, 0) as total_items_purchased,
     coalesce(cp.total_orders_spent, 0) as total_orders_spent,
     case
-        when cp.total_orders_count is null or cp.total_orders_count = 0 then 'Prospect'
+        when cp.total_orders_count is null or cp.total_orders_count = 0 then 'Card Abandoner'
         when cp.last_order_date >= date_sub(current_date(), interval 1 year) then 'Active'
         else 'Churned'
     end as customer_status

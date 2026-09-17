@@ -10,4 +10,4 @@ models:
           - unique
           - not_null
       - name: customer_status
-        description: "Calculated customer lifecycle status (Prospect, Active, Churned)."
+        description: "Calculated customer lifecycle status (Prospect (cart abandoner), Active (with an order on last 365 days), Churned (without an order on last 365 days)."

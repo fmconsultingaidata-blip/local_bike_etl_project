@@ -12,6 +12,7 @@ select
     product_name,
     brand_id,
     category_id,
+    category_name,
     model_year,
     list_price,
     stock_quantity,

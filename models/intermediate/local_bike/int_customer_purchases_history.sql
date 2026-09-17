@@ -27,6 +27,7 @@ customer_category_prefs as (
     select
         o.customer_id,
         oi.category_id,
+        oi.category_name,
         sum(oi.item_quantity) as qty_per_category,
         row_number() over (
             partition by o.customer_id 
@@ -34,7 +35,7 @@ customer_category_prefs as (
         ) as category_rank
     from order_items oi
     inner join orders_summary o on oi.order_id = o.order_id
-    group by o.customer_id, oi.category_id
+    group by o.customer_id, oi.category_id, oi.category_name
 ),
 
 base_history as (
@@ -58,7 +59,8 @@ select
     bh.total_orders_spent,
     cb.brand_id as top_brand_id,
     cb.brand_name as top_brand_name,
-    cc.category_id as top_category_id
+    cc.category_id as top_category_id,
+    cc.category_name as top_category_name
 from base_history bh
 left join customer_brand_prefs cb 
     on bh.customer_id = cb.customer_id 

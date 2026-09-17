@@ -22,6 +22,13 @@ stores as (
     from {{ ref('stg_local_bike__stores') }}
 )
 
+, categories as (
+    select 
+        category_id,
+        category_name
+    from {{ ref('stg_local_bike__categories') }}
+)
+
 select
     s.stock_id,
     s.store_id,
@@ -32,6 +39,7 @@ select
     p.product_name,
     p.brand_id,
     p.category_id,
+    ct.category_name,
     p.model_year,
     p.list_price,
     s.stock_quantity,
@@ -39,3 +47,4 @@ select
 from stocks s
 left join products p on s.product_id = p.product_id
 left join stores st on s.store_id = st.store_id
+left join categories ct on p.category_id = ct.category_id
