@@ -50,7 +50,8 @@ stores as (
 staffs as (
     select
         staff_id,
-        staff_last_name 
+        staff_last_name,
+        is_active_staff 
     from {{ ref('stg_local_bike__staffs') }}
 )
 ,
@@ -71,6 +72,7 @@ select
     st.store_name,
     o.staff_id,
     sf.staff_last_name,
+    sf.is_active_staff,
     o.order_created_at,
     o.order_status,
     o.order_required_at,
